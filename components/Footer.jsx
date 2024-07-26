@@ -8,6 +8,7 @@ import { FaInstagramSquare } from 'react-icons/fa';
 import { MdOutlineMailOutline } from 'react-icons/md';
 
 const Footer = () => {
+	const now = new Date().getFullYear();
 	return (
 		<footer className='bg-gray-800 text-white py-8'>
 			<div className='container mx-auto px-4'>
@@ -37,21 +38,21 @@ const Footer = () => {
 							</li>
 							<li className='mb-2'>
 								<a
-									href='/about'
+									href='#about'
 									className='hover:underline'>
 									About Us
 								</a>
 							</li>
 							<li className='mb-2'>
 								<a
-									href='/services'
+									href=''
 									className='hover:underline'>
 									Services
 								</a>
 							</li>
 							<li className='mb-2'>
 								<a
-									href='/contact'
+									href='#contact'
 									className='hover:underline'>
 									Contact
 								</a>
@@ -85,7 +86,7 @@ const Footer = () => {
 					</div>
 				</div>
 				<div className='text-center mt-8'>
-					<p>&copy; 2024 BAOBA COMPANY LIMITED. All rights reserved.</p>
+					<p>&copy; {now} BAOBA COMPANY LIMITED. All rights reserved.</p>
 				</div>
 			</div>
 		</footer>
