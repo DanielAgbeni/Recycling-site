@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ArrowRight, Recycle, Award, Users } from 'lucide-react';
+import Image from 'next/image';
 
 const Hero = () => {
 	return (
@@ -15,9 +16,11 @@ const Hero = () => {
 						Transforming plastic waste into sustainable resources for a cleaner,
 						greener future.
 					</p>
-					<button className='bg-primary-100 text-white font-semibold py-3 px-6 rounded-full hover:bg-primary-400 transition duration-300 flex items-center mx-auto'>
-						Learn More <ArrowRight className='ml-2' />
-					</button>
+					<a href='#about'>
+						<button className='bg-primary-100 text-white font-semibold py-3 px-6 rounded-full hover:bg-primary-400 transition duration-300 flex items-center mx-auto'>
+							Learn More <ArrowRight className='ml-2' />
+						</button>
+					</a>
 				</div>
 			</div>
 		</div>

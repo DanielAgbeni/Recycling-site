@@ -1,33 +1,36 @@
 'use client';
-import { MdClose, MdMenu } from 'react-icons/md';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Menu, X, Recycle } from 'lucide-react';
 import Image from 'next/image';
 
 const Navbar = () => {
-	const [isMenu, setIsMenu] = useState(false);
-	const [scroll, setScroll] = useState(false);
-	const menuRef = useRef(null);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [isScrolled, setIsScrolled] = useState(false);
 
 	useEffect(() => {
 		const handleScroll = () => {
-			const scrollTop =
-				window.pageYOffset || document.documentElement.scrollTop;
-			setScroll(scrollTop > 150);
+			setIsScrolled(window.scrollY > 20);
 		};
 
 		window.addEventListener('scroll', handleScroll);
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
+		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
+
+	const navItems = [
+		{ name: 'Home', link: '#' },
+		{ name: 'About', link: '#about' },
+		{ name: 'Products', link: '#products' },
+		{ name: 'Accreditation', link: '#accreditation' },
+		{ name: 'Contact', link: '#contact' },
+	];
 
 	return (
 		<header
-			className={`${
-				scroll ? 'fixed mb-20' : 'relative'
-			} w-full h-20 drop-shadow-sm z-50 bg-white transition-all duration-700 transition-delay-500`}>
-			<div className='container mx-auto px-4 h-full'>
-				<div className='flex items-center justify-between h-full'>
+			className={`fixed w-full z-50 transition-all duration-300 ${
+				isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+			}`}>
+			<div className='container mx-auto px-4'>
+				<div className='flex items-center justify-between py-4'>
 					<Image
 						src='/icon.png'
 						alt='icon'
@@ -37,18 +40,12 @@ const Navbar = () => {
 
 					{/* Desktop Navigation */}
 					<nav className='hidden md:block'>
-						<ul className='flex items-center space-x-8'>
-							{[
-								{ name: 'Home', link: '#' },
-								{ name: 'About', link: '#about' },
-								{ name: 'Products', link: '#products' },
-								{ name: 'Accreditation', link: '#accreditation' },
-								{ name: 'Contact', link: '#contact' },
-							].map((item) => (
+						<ul className='flex space-x-8'>
+							{navItems.map((item) => (
 								<li key={item.name}>
 									<a
 										href={item.link}
-										className='text-lg text-primary-100 font-semibold transition-colors duration-300 hover:text-primary-400 rounded'>
+										className='text-lg font-medium text-gray-700 hover:text-primary-100 transition-colors duration-300'>
 										{item.name}
 									</a>
 								</li>
@@ -59,41 +56,37 @@ const Navbar = () => {
 					{/* Mobile Navigation */}
 					<div className='md:hidden'>
 						<button
-							onClick={() => setIsMenu(!isMenu)}
-							className='p-2'>
-							{isMenu ? (
-								<MdClose className='text-3xl text-red-600' />
+							onClick={() => setIsMenuOpen(!isMenuOpen)}
+							className='p-2 text-gray-500 hover:text-primary-100 transition-colors duration-300'>
+							{isMenuOpen ? (
+								<X className='h-6 w-6' />
 							) : (
-								<MdMenu className='text-3xl text-gray-400' />
+								<Menu className='h-6 w-6' />
 							)}
 						</button>
-
-						{isMenu && (
-							<div
-								ref={menuRef}
-								className='absolute top-full right-0 w-64 bg-gray-800 shadow-xl rounded-lg mt-2 py-3 px-4'>
-								<ul className='space-y-2'>
-									{[
-										{ name: 'Home', link: '#' },
-										{ name: 'About', link: '#about' },
-										{ name: 'Products', link: '#products' },
-										{ name: 'Accreditation', link: '#accreditation' },
-										{ name: 'Contact', link: '#contact' },
-									].map((item) => (
-										<li key={item.name}>
-											<a
-												href={item.link}
-												className='block py-2 px-4 text-white font-semibold hover:bg-gray-700 rounded-lg transition-colors duration-300'
-												onClick={() => setIsMenu(false)}>
-												{item.name}
-											</a>
-										</li>
-									))}
-								</ul>
-							</div>
-						)}
 					</div>
 				</div>
+			</div>
+
+			{/* Mobile Menu */}
+			<div
+				className={`md:hidden bg-white ${
+					isMenuOpen ? 'max-h-screen' : 'max-h-0'
+				} overflow-hidden transition-all duration-300`}>
+				<nav className='container mx-auto px-4 py-4'>
+					<ul className='space-y-4'>
+						{navItems.map((item) => (
+							<li key={item.name}>
+								<a
+									href={item.link}
+									className='block py-2 text-lg font-medium text-gray-700 hover:text-primary-100 transition-colors duration-300'
+									onClick={() => setIsMenuOpen(false)}>
+									{item.name}
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
 			</div>
 		</header>
 	);
