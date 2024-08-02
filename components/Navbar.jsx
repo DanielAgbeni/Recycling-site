@@ -24,7 +24,7 @@ const Navbar = () => {
 	return (
 		<header
 			className={`${
-				scroll ? 'fixed' : 'relative'
+				scroll ? 'fixed mb-20' : 'relative'
 			} w-full h-20 drop-shadow-sm z-50 bg-white transition-all duration-700 transition-delay-500`}>
 			<div className='container mx-auto px-4 h-full'>
 				<div className='flex items-center justify-between h-full'>
