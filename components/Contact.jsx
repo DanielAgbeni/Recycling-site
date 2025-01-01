@@ -1,38 +1,56 @@
 'use client';
-import { useState } from 'react';
+import React, { useState, useRef } from "react";
 import PageContainer from './PageContainer';
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
-	const [formData, setFormData] = useState({
+
+	const form = useRef(null);
+	const [formData, setFormData] = useState(
+		{
 		name: '',
 		email: '',
 		message: '',
-	});
+		}
+
+);
 	const [submitted, setSubmitted] = useState(false);
 	const [error, setError] = useState('');
+	// const [submitted, setSubmitted] = useState(false);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		setError('');
-		setSubmitted(false);
+	const handleInputChange = (e) => {
+		const { name, value } = e.target;
+		setFormData((prevData) => ({
+		  ...prevData,
+		  [name]: value,
+		}));
+	  };
 
+
+	  const handleFormSubmit = async (e) => {
+		e.preventDefault();	
+		if (!form.current) return;
+	
 		try {
-			const res = await fetch('/api/contact', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(formData),
-			});
-
-			if (res.ok) {
-				setSubmitted(true);
-				setFormData({ name: '', email: '', message: '' });
-			} else {
-				setError('Failed to send message. Please try again.');
-			}
-		} catch (err) {
-			setError('Something went wrong.');
+		  const result = await emailjs.sendForm(
+			process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID_FEEDBACK,
+			process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_FEEDBACK,
+			form.current,
+			process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY_FEEDBACK
+		  );
+	
+		  console.log("SUCCESS!", result.text);
+		  setFormData({
+			name: "",
+			email: "",
+			message: "",
+		  });
+		  alert("Message sent successfully!");
+		} catch (error) {
+		  console.error("FAILED...", error);
+		  setError("Failed to send message. Please try again later.");
 		}
-	};
+	  };
 
 	return (
 		<>
@@ -42,10 +60,11 @@ const Contact = () => {
 					id='contact'>
 					<h1 className='text-3xl font-bold text-center mb-6'>Contact Us</h1>
 					<form
-						onSubmit={handleSubmit}
+					  ref={form}
+						onSubmit={handleFormSubmit}
 						className='space-y-6'>
 						{/* Input fields */}
-						<div>
+						<div>	
 							<label
 								htmlFor='name'
 								className='block text-sm font-medium text-gray-700'>
@@ -57,9 +76,7 @@ const Contact = () => {
 								name='name'
 								className='mt-1 block w-full p-2.5 border border-gray-300 rounded-md shadow-sm'
 								value={formData.name}
-								onChange={(e) =>
-									setFormData({ ...formData, name: e.target.value })
-								}
+								onChange={handleInputChange}
 								required
 							/>
 						</div>
@@ -75,9 +92,7 @@ const Contact = () => {
 								name='email'
 								className='mt-1 block w-full p-2.5 border border-gray-300 rounded-md shadow-sm'
 								value={formData.email}
-								onChange={(e) =>
-									setFormData({ ...formData, email: e.target.value })
-								}
+								onChange={handleInputChange}
 								required
 							/>
 						</div>
@@ -93,9 +108,7 @@ const Contact = () => {
 								rows='4'
 								className='mt-1 block w-full p-2.5 border border-gray-300 rounded-md shadow-sm'
 								value={formData.message}
-								onChange={(e) =>
-									setFormData({ ...formData, message: e.target.value })
-								}
+								onChange={handleInputChange}
 								required></textarea>
 						</div>
 						<div>

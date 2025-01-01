@@ -4,16 +4,14 @@ export default async function handler(req, res) {
 	if (req.method === 'POST') {
 		const { name, email, message } = req.body;
 
-		// Create transporter object using your email service
 		const transporter = nodemailer.createTransport({
 			service: 'Gmail',
 			auth: {
-				user: process.env.GMAIL_USER, // your email address
+				user: process.env.GMAIL_USER,
 				pass: process.env.GMAIL_PASS, // your email password (use app-specific password if 2FA is enabled)
 			},
 		});
 
-		// Mail options
 		const mailOptions = {
 			from: email,
 			to: 'danielagbeni12@gmail.com', // your email address
