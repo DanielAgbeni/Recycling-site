@@ -12,8 +12,8 @@ const Home = () => {
 	return (
 		<div>
 			<SEO
-				title='Recycling Website'
-				description='Learn about recycling and its benefits'
+				title='BAOBA Company Limited'
+				description='BAOBA Company Limited is a global leader in recycling plastic waste into sustainable resources. Discover our innovative solutions for reducing environmental impact and creating a greener, cleaner planet.'
 			/>
 			<Hero />
 			<About />

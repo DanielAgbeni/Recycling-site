@@ -1,4 +1,3 @@
-// components/Footer.js
 import Image from 'next/image';
 import React from 'react';
 import { MdFacebook } from 'react-icons/md';
@@ -8,6 +7,9 @@ import { FaInstagramSquare } from 'react-icons/fa';
 import { MdOutlineMailOutline } from 'react-icons/md';
 
 const Footer = () => {
+	// Get the current year dynamically
+	const currentYear = new Date().getFullYear();
+
 	return (
 		<footer className='bg-gray-800 text-white py-8'>
 			<div className='container mx-auto px-4'>
@@ -85,7 +87,9 @@ const Footer = () => {
 					</div>
 				</div>
 				<div className='text-center mt-8'>
-					<p>&copy; 2024 BAOBA COMPANY LIMITED. All rights reserved.</p>
+					<p>
+						&copy; {currentYear} BAOBA COMPANY LIMITED. All rights reserved.
+					</p>
 				</div>
 			</div>
 		</footer>

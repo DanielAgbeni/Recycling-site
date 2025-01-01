@@ -3,23 +3,37 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-	title: 'BAOBA COMPANY LIMITED',
+	title: 'BAOBA Company Limited',
 	description:
-		"At BAOBA COMPANY LIMITED, we're committed to transforming plastic waste into sustainable resources. Join us in creating a cleaner, greener future by reducing environmental impact through innovative recycling solutions.",
+		'BAOBA Company Limited is a global leader in recycling plastic waste into sustainable resources. Discover our innovative solutions for reducing environmental impact and creating a greener, cleaner planet.',
 	openGraph: {
 		type: 'website',
 		locale: 'en_IE',
-		url: 'http://baobacompanylimited.com',
-		site_name: 'BAOBA COMPANY LIMITED',
+		url: 'https://www.baobacompanylimited.com/',
+		site_name: 'BAOBA Company Limited',
 		images: [
 			{
-				url: 'http://baobacompanylimited.com/',
+				url: 'https://www.baobacompanylimited.com/_next/image?url=%2Ficon.png&w=256&q=75',
 				width: 1200,
 				height: 630,
-				alt: 'BAOBA COMPANY LIMITED',
+				alt: 'BAOBA Company Limited - Sustainable Recycling Solutions',
 			},
 		],
 	},
+	keywords: [
+		'sustainable recycling',
+		'plastic waste recycling',
+		'environmental impact solutions',
+		'green future',
+		'BAOBA Company Limited',
+		'Baoba Company Limited',
+		'recycling innovation',
+	],
+	alternates: {
+		canonical: 'https://www.baobacompanylimited.com',
+	},
+	robots: 'index, follow',
+	author: 'BAOBA Company Limited',
 };
 
 export default function RootLayout({ children }) {
